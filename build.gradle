@@ -1,0 +1,17 @@
+group 'info.noconfuse'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile('org.apache.spark:spark-core_2.10:1.6.2')
+    testCompile ('junit:junit:4.11')
+}
