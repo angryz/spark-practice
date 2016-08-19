@@ -6,6 +6,8 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 
+import java.util.Arrays;
+
 /**
  * @author Zheng Zhipeng
  */
@@ -14,7 +16,8 @@ public class FunctionPassing {
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setMaster("local").setAppName("My App");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        JavaRDD<String> lines = sc.textFile("README.md");
+        JavaRDD<String> lines = sc.parallelize(Arrays.asList("hello world", "foobar", "error",
+                "example", "another error", "error-1"));
 
         // use anonymous inner class
         JavaRDD<String> errors = lines.filter(new Function<String, Boolean>() {
