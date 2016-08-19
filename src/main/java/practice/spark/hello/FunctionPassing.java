@@ -1,10 +1,10 @@
 package practice.spark.hello;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
-import org.apache.spark.rdd.RDD;
 
 /**
  * @author Zheng Zhipeng
@@ -23,15 +23,19 @@ public class FunctionPassing {
                 return v1.contains("error");
             }
         });
+        System.out.println(StringUtils.join(errors.collect(), ", "));
 
         // use named inner class
         JavaRDD<String> errors1 = lines.filter(new ContainsError());
+        System.out.println(StringUtils.join(errors1.collect(), ", "));
 
         // use named inner class with constructor method witch has arguments
         JavaRDD<String> errors2 = lines.filter(new Contains("error"));
+        System.out.println(StringUtils.join(errors2.collect(), ", "));
 
         // use lambda
         JavaRDD<String> errors3 = lines.filter(s -> s.contains("error"));
+        System.out.println(StringUtils.join(errors3.collect(), ", "));
     }
 
     public static class ContainsError implements Function<String, Boolean> {
