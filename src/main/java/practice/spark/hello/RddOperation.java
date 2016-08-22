@@ -2,6 +2,7 @@ package practice.spark.hello;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaDoubleRDD;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -60,5 +61,10 @@ public class RddOperation {
         // cartesian()
         JavaPairRDD<String, String> animalsWithFruits = animals.cartesian(distincted);
         System.out.println("cartesian() | " + StringUtils.join(animalsWithFruits.collect(), ", "));
+
+        // mapToDouble(), mean(), RDD transform from int to double
+        JavaDoubleRDD square = oneToFour.mapToDouble(x -> (double) x * x);
+        System.out.println("mean() | " + square.mean());
     }
+
 }
